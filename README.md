@@ -15,8 +15,6 @@
 - 根据工程说明文档和字段表构建新的场景知识库
 - 独立的 HAI 场景适配与迁移实验流程
 
-系统是研究原型，不用于生产安全联锁或自动控制。
-
 ## 工作流程
 
 1. 读取用户上传的 CSV，或解压 ZIP 中的 CSV。
@@ -120,13 +118,14 @@ This repository presents a privacy-cleaned research prototype for industrial mul
 
 - 仓库不包含原始数据、处理后数据、个人材料、密钥、模型权重或生成的向量索引。
 - `data/`、上传文件、运行输出、场景索引和本地配置均已通过 `.gitignore` 排除。
-- 输入数据的权限、许可与脱敏责任由使用者自行确认。
 - 更完整的发布检查见 [docs/PUBLICATION_REVIEW.md](docs/PUBLICATION_REVIEW.md)。
 
 ## 限制
 
 - 需要本地运行 Ollama；首次加载嵌入模型或构建索引可能较慢。
 - LLM 输出具有一定非确定性，模型版本与参数会影响结果。
-- 当前 Flask 服务仅面向本机演示，不包含生产环境所需的认证、限流和任务队列。
-- 当前仓库未附加开源许可证，默认不授予复制、修改或再分发权利。
+
+## License
+
+本项目基于 [MIT License](LICENSE) 开源。
 
