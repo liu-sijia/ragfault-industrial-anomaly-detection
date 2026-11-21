@@ -1,0 +1,59 @@
+data:
+  raw_gzip: ./extension_experiment/data/raw/hai-21.03-test1.csv.gz
+  processed_csv: ./extension_experiment/data/processed/hai_transfer.csv
+  source_start: 0
+  source_end: 0
+  baseline_points: 180
+  window_size: 30
+  window_step: 30
+  segments:
+    - attack_start: 2111
+      attack_end: 2303
+      pre_margin: 180
+      post_margin: 180
+    - attack_start: 14351
+      attack_end: 14541
+      pre_margin: 180
+      post_margin: 180
+    - attack_start: 21801
+      attack_end: 21890
+      pre_margin: 180
+      post_margin: 180
+  features:
+    - P1_LIT01
+    - P1_PIT01
+    - P1_PIT02
+    - P1_FT01
+    - P1_FT02
+    - P1_FT03
+    - P1_FCV01Z
+    - P1_FCV03Z
+    - P2_SIT01
+    - P2_SIT02
+    - P2_CO_rpm
+    - P3_FIT01
+    - P3_LIT01
+    - P3_PIT01
+    - P4_ST_PT01
+    - P4_ST_TT01
+
+knowledge_base:
+  dir: ./extension_experiment/knowledge_base/hai
+  embedding_model: paraphrase-multilingual-MiniLM-L12-v2
+  top_k: 6
+
+llm:
+  model: llama3.1:8b
+  local_url: http://localhost:11434
+  temperature: 0.0
+  max_tokens: 180
+  timeout: 500
+
+experiment:
+  severe_z_threshold: 5.0
+  multi_z_threshold: 2.0
+  multi_z_count: 2
+  final_constraint_mode: rag_guard
+  max_windows: 0
+  include_zscore_reference: false
+  results_dir: ./extension_experiment/results/hai_transfer

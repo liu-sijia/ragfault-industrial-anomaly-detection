@@ -1,0 +1,61 @@
+HAI Industrial Control System Anomaly Patterns
+
+1. Multi-variable process deviation
+   - Primary indicators: two or more key process variables have |z_score| greater than 1.5 in the same window
+   - Related variables: P1_LIT01, P2_SIT01, P2_SIT02, P2_CO_rpm, P1_PIT01, P4_ST_PT01
+   - Possible cause: coordinated process disturbance, cyber attack effect, abnormal control action, or system state transition outside the learned baseline
+   - Detection meaning: simultaneous deviations across process areas are stronger anomaly evidence than a single mild deviation.
+
+2. Level-control anomaly
+   - Primary indicators: P1_LIT01 is significantly high or low relative to baseline
+   - Related variables: P1_LIT01, P1_PIT01
+   - Possible cause: abnormal inflow/outflow balance, level control disturbance, or manipulation of process measurements
+   - Detection meaning: large level deviation suggests that the physical process state has moved away from normal operation.
+
+3. Flow-valve control anomaly
+   - Primary indicators: P1_FT01, P1_FT02, or P1_FT03 deviates together with P1_FCV01Z or P1_FCV03Z
+   - Related variables: P1_FT01, P1_FT02, P1_FT03, P1_FCV01Z, P1_FCV03Z
+   - Possible cause: abnormal valve position, flow restriction, actuator disturbance, or control manipulation
+   - Detection meaning: flow and valve-position deviations in the same window should be treated as strong anomaly evidence.
+
+4. Level-pressure anomaly
+   - Primary indicators: P1_LIT01 or P3_LIT01 deviates together with pressure variables
+   - Related variables: P1_LIT01, P1_PIT01, P1_PIT02, P3_LIT01, P3_PIT01
+   - Possible cause: abnormal inflow/outflow balance, pressure disturbance, or manipulated process state
+   - Detection meaning: joint level and pressure changes usually indicate meaningful process deviation rather than sensor noise.
+
+5. Rotating-equipment speed anomaly
+   - Primary indicators: P2_SIT01 and P2_SIT02 deviate together, or P2_CO_rpm deviates from baseline
+   - Related variables: P2_SIT01, P2_SIT02, P2_CO_rpm
+   - Possible cause: abnormal speed control, equipment disturbance, controller manipulation, or attack effect in the P2 unit
+   - Detection meaning: consistent speed-related deviation is important evidence for process anomaly.
+
+6. P3 process anomaly
+   - Primary indicators: P3_FIT01, P3_LIT01, and P3_PIT01 show simultaneous deviation
+   - Related variables: P3_FIT01, P3_LIT01, P3_PIT01
+   - Possible cause: P3 process disturbance, flow/level/pressure imbalance, or cross-area attack effect
+   - Detection meaning: simultaneous P3 flow, level, and pressure deviations indicate localized process anomaly.
+
+7. Steam-turbine pressure and temperature anomaly
+   - Primary indicators: P4_ST_PT01 or P4_ST_TT01 has a clear z-score deviation
+   - Related variables: P4_ST_PT01, P4_ST_TT01
+   - Possible cause: turbine-side pressure/temperature disturbance or abnormal process command
+   - Detection meaning: P4 pressure and temperature evidence helps detect anomalies outside the P1/P2/P3 units.
+
+8. Pressure anomaly
+   - Primary indicators: P1_PIT01 or P4_ST_PT01 has a high absolute z-score
+   - Related variables: P1_PIT01, P4_ST_PT01
+   - Possible cause: flow restriction, pressure control instability, turbine-side disturbance, or abnormal process command
+   - Detection meaning: pressure deviation helps distinguish meaningful process changes from isolated sensor noise.
+
+9. Sensor or measurement anomaly
+   - Primary indicators: one variable has an extreme z-score while related variables remain near baseline
+   - Related variables: any selected sensor
+   - Possible cause: sensor drift, measurement injection, communication fault, or isolated signal manipulation
+   - Detection meaning: a single extreme deviation should be treated as suspicious, especially when it affects a critical process variable.
+
+10. Normal process fluctuation reference
+   - Primary indicators: all selected variables remain within |z_score| less than 1.5
+   - Related variables: all selected variables
+   - Possible cause: normal process variation around the operating baseline
+   - Detection meaning: this reference applies only when no variable has severe deviation and no multi-variable deviation pattern is present. It must not override severe z-score evidence.

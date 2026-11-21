@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RAGFault — Local LLM-Powered Industrial Anomaly Detection</title>
+    <link rel="icon" href="data:," />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="topbar">
+        <div class="brand-block">
+          <p class="eyebrow">RAGFault · Industrial Anomaly Dashboard</p>
+          <h1>本地 LLM + RAG 工业异常检测系统</h1>
+          <p>上传 CSV 后，系统按窗口完成 RAG 检索、LLM 判定、指标统计和证据解释展示。</p>
+        </div>
+
+        <aside class="config-card" aria-label="运行参数">
+          <div class="config-head">
+            <strong>运行参数</strong>
+            <span id="runtimeStatus">等待上传 CSV</span>
+          </div>
+          <div class="config-grid">
+            <label class="field">
+              <span>窗口大小</span>
+              <div class="stepper">
+                <button type="button" data-step="windowSize" data-delta="-10" aria-label="减小窗口大小">-</button>
+                <input id="windowSize" type="number" min="10" max="300" step="10" value="30" />
+                <button type="button" data-step="windowSize" data-delta="10" aria-label="增大窗口大小">+</button>
+              </div>
+            </label>
+            <label class="field">
+              <span>基线点数</span>
+              <div class="stepper">
+                <button type="button" data-step="baselinePoints" data-delta="-50" aria-label="减少基线点数">-</button>
+                <input id="baselinePoints" type="number" min="30" max="2000" step="50" value="400" />
+                <button type="button" data-step="baselinePoints" data-delta="50" aria-label="增加基线点数">+</button>
+              </div>
+            </label>
+            <label class="field">
+              <span>RAG Top-K</span>
+              <div class="stepper">
+                <button type="button" data-step="topK" data-delta="-1" aria-label="减少 RAG Top-K">-</button>
+                <input id="topK" type="number" min="1" max="10" step="1" value="6" />
+                <button type="button" data-step="topK" data-delta="1" aria-label="增加 RAG Top-K">+</button>
+              </div>
+            </label>
+          </div>
+        </aside>
+      </section>
+
+      <section class="upload-panel">
+        <div class="upload-copy">
+          <p class="section-kicker">数据输入</p>
+          <strong>上传待检测 CSV 或 ZIP</strong>
+          <span>包含 anomaly 列时，前端会展示 F1、FAR、MAR 与混淆矩阵。</span>
+        </div>
+        <section id="dropzone" class="dropzone">
+          <input id="fileInput" type="file" accept=".csv,.zip,text/csv,application/zip" multiple />
+          <div class="upload-icon" aria-hidden="true"></div>
+          <div>
+            <strong>Drag and drop file here</strong>
+            <span>Limit 200MB per file · CSV / ZIP</span>
+          </div>
+          <button id="browseButton" type="button">Browse files</button>
+        </section>
+        <button id="loadSample" class="secondary-action" type="button">载入示例</button>
+      </section>
+
+      <section class="pipeline-panel">
+        <div class="panel-heading">
+          <h2>Detection Pipeline</h2>
+          <strong id="pipelineState">等待上传 CSV</strong>
+        </div>
+        <div class="progress-track"><span id="progressBar"></span></div>
+        <div class="pipeline" id="pipeline">
+          <article class="pipeline-step active" data-step-index="0"><span>1</span><strong>Upload</strong><small>读取 CSV</small></article>
+          <article class="pipeline-step" data-step-index="1"><span>2</span><strong>Schema</strong><small>识别字段</small></article>
+          <article class="pipeline-step" data-step-index="2"><span>3</span><strong>Window</strong><small>窗口切分</small></article>
+          <article class="pipeline-step" data-step-index="3"><span>4</span><strong>RAG</strong><small>检索证据</small></article>
+          <article class="pipeline-step" data-step-index="4"><span>5</span><strong>LLM</strong><small>模型判定</small></article>
+          <article class="pipeline-step" data-step-index="5"><span>6</span><strong>Metrics</strong><small>计算指标</small></article>
+          <article class="pipeline-step" data-step-index="6"><span>7</span><strong>Visual</strong><small>结果展示</small></article>
+        </div>
+      </section>
+
+      <section class="knowledge-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="section-kicker">场景知识库</p>
+            <h2>工程资料自动构建</h2>
+          </div>
+          <label class="scene-picker">
+            <span>当前知识库</span>
+            <select id="sceneSelect">
+              <option value="default">默认SKAB知识库</option>
+            </select>
+          </label>
+        </div>
+        <div class="knowledge-grid">
+          <label class="kb-file">
+            <span>工程资料</span>
+            <input id="docInput" type="file" accept=".txt,.md,.docx,.pdf" />
+          </label>
+          <label class="kb-file">
+            <span>字段匹配 CSV</span>
+            <input id="kbCsvInput" type="file" accept=".csv,text/csv" />
+          </label>
+          <label class="kb-file">
+            <span>场景名称</span>
+            <input id="sceneNameInput" type="text" placeholder="可选，例如 pump_station" />
+          </label>
+          <button id="buildKnowledge" class="primary-action" type="button">构建知识库</button>
+        </div>
+        <div id="knowledgeStatus" class="knowledge-status">默认使用 SKAB 知识库；上传工程资料后可生成新场景知识库。</div>
+        <div id="knowledgePreview" class="knowledge-preview hidden">
+          <article>
+            <strong>传感器信息</strong>
+            <pre id="sensorPreview"></pre>
+          </article>
+          <article>
+            <strong>异常模式</strong>
+            <pre id="patternPreview"></pre>
+          </article>
+        </div>
+      </section>
+
+      <section id="results" class="results hidden">
+        <section class="summary-layout">
+          <div class="metrics-grid" id="metricsGrid"></div>
+
+          <article class="confusion-panel">
+            <div class="panel-heading">
+              <h2>混淆矩阵</h2>
+              <strong>自动生成</strong>
+            </div>
+            <div id="confusionMatrix" class="confusion-matrix" aria-label="混淆矩阵"></div>
+          </article>
+        </section>
+
+        <section class="visual-panel">
+          <div class="panel-heading">
+            <h2>检测可视化图</h2>
+            <button id="downloadCsv" class="primary-action" type="button">下载预测明细 CSV</button>
+          </div>
+          <canvas id="chart" width="1280" height="420" aria-label="检测可视化图"></canvas>
+          <div class="legend">
+            <span><i class="line blue"></i>z-score 曲线</span>
+            <span><i class="block red"></i>真实异常窗口</span>
+            <span><i class="line green"></i>预测异常</span>
+            <span><i class="line gray"></i>阈值参考</span>
+          </div>
+        </section>
+
+        <section class="analysis-grid">
+          <article class="analysis-panel">
+            <div class="panel-heading">
+              <h2>RAG 解释分析</h2>
+              <strong id="ragSummaryState">已生成</strong>
+            </div>
+            <div id="ragSummary" class="rag-summary"></div>
+          </article>
+
+          <article class="analysis-panel">
+            <div class="panel-heading">
+              <h2>检索到的 RAG 证据片段</h2>
+              <strong id="evidenceCount">0 条</strong>
+            </div>
+            <div id="evidenceList" class="evidence-list"></div>
+          </article>
+        </section>
+
+        <section class="window-evidence-panel">
+          <div class="panel-heading">
+            <h2>窗口级 LLM Reason 与 RAG 证据核对</h2>
+            <strong id="windowCount">0 windows</strong>
+          </div>
+          <div id="windowCards" class="window-card-grid"></div>
+        </section>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

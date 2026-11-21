@@ -1,0 +1,8 @@
+z_min,z_max,level,description
+-999,-3.0,Severely Low,Value is far below the normal baseline and may indicate a serious process fault or attack effect
+-3.0,-2.0,Low,Value is clearly below the normal baseline and may indicate abnormal process behavior
+-2.0,-1.0,Slightly Low,Value is slightly below the normal baseline and should be interpreted with other variables
+-1.0,1.0,Normal,Value is within the normal baseline range
+1.0,2.0,Slightly High,Value is slightly above the normal baseline and should be interpreted with other variables
+2.0,3.0,High,Value is clearly above the normal baseline and may indicate abnormal process behavior
+3.0,999,Severely High,Value is far above the normal baseline and may indicate a serious process fault or attack effect

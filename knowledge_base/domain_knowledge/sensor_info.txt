@@ -1,0 +1,25 @@
+SKAB Water Circulation System Sensor Information
+
+1. Accelerometer1RMS (Accelerometer 1 RMS)
+   - Location: Bearing housing 1
+   - Measurement: Vibration acceleration RMS (Root Mean Square)
+   - Normal Range: 0.02-0.05 g
+   - Purpose: Monitor mechanical vibration of rotating equipment (pumps, motors)
+
+2. Accelerometer2RMS (Accelerometer 2 RMS)
+   - Location: Bearing housing 2
+   - Measurement: Vibration acceleration RMS
+   - Normal Range: 0.02-0.05 g
+   - Purpose: Monitor vibration of the opposite bearing
+
+3. Temperature
+   - Location: Pipeline outlet
+   - Measurement: Water temperature (Celsius)
+   - Normal Range: 75-95°C
+   - Purpose: Monitor system thermal balance, detect overheating or cooling anomalies
+
+4. Volume Flow RateRMS (Volume Flow Rate RMS)
+   - Location: Flow meter
+   - Measurement: Fluid volume flow rate RMS
+   - Normal Range: 30-150 L/min
+   - Purpose: Monitor water flow rate, reflect valve opening and pump performance

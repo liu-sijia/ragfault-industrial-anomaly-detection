@@ -1,0 +1,87 @@
+SKAB Water Circulation System - Diagnostic Decision Guide
+
+## ANOMALY DETECTION THRESHOLDS
+
+### Z-Score Interpretation Guide
+- |z| < 1.0: NORMAL - Value within normal operating range
+- 1.0 < |z| < 1.5: MILD DEVIATION - Monitor closely, may indicate early warning
+- 1.5 < |z| < 2.0: MODERATE ANOMALY - Likely developing fault, investigate
+- 2.0 < |z| < 3.0: SIGNIFICANT ANOMALY - Probable fault, action recommended
+- |z| > 3.0: SEVERE ANOMALY - Definite fault, immediate attention required
+
+## FAULT PATTERN DIAGNOSTIC RULES
+
+### Pattern 1: Valve Partial Closure (Rate z < -2 AND Temp z > 1)
+- Primary Indicator: Volume Flow RateRMS drops significantly (z < -2)
+- Secondary Indicator: Temperature rises slightly (z > 1) due to reduced cooling flow
+- Fault Type: Mechanical - Valve malfunction
+- Action: Check valve position and actuator
+
+### Pattern 2: Bearing Imbalance / Wear (Accel1 z > 2 OR Accel2 z > 2)
+- Primary Indicator: Single or dual accelerometer readings elevated
+- Pattern: One sensor higher than the other indicates localized fault
+- Fault Type: Mechanical - Bearing degradation
+- Action: Schedule bearing inspection
+
+### Pattern 3: Cavitation (Multiple features |z| > 1.5 simultaneously)
+- Primary Indicator: Multiple sensors show abnormal readings together
+- Pattern: High vibration + Temperature change + Flow instability
+- Fault Type: Hydraulic - Cavitation due to low inlet pressure
+- Action: Check pump inlet conditions
+
+### Pattern 4: Temperature Extreme (Temp z < -3 OR Temp z > 3)
+- Primary Indicator: Temperature severely outside normal range
+- Low Temperature: Possible excessive flow or cooling failure
+- High Temperature: Possible pump overload or cooling system failure
+- Fault Type: Thermal - System overheating or overcooling
+- Action: Inspect cooling system immediately
+
+### Pattern 5: Combined Sensor Anomaly (2+ features |z| > 1.5)
+- Primary Indicator: At least two features showing significant deviation
+- Pattern: Indicates systemic issue affecting multiple components
+- Fault Type: Complex - May involve multiple subsystems
+- Action: Comprehensive system diagnostics recommended
+
+## SENSOR RELATIONSHIP RULES
+
+### Normal Operation Signatures
+- All sensors within |z| < 1.5
+- Accelerometer1RMS and Accelerometer2RMS roughly balanced (ratio 0.5-2.0)
+- Temperature stable with minor fluctuations
+- Flow rate consistent with setpoint
+
+### Abnormal Signatures
+- Accelerometer Ratio > 3.0 OR < 0.3: Indicates bearing or mechanical issue
+- Rate-Temp inverse correlation broken: May indicate valve or flow control problem
+- Sudden multi-sensor shift: Indicates external disturbance or fault onset
+
+## DECISION MAKING GUIDELINES
+
+### When to Classify as ANOMALY (YES)
+1. ANY single feature with |z| > 3.0
+2. TWO OR MORE features with |z| > 1.5 simultaneously
+3. ANY accelerometer reading with z > 2.0 (high vibration)
+4. Valve pattern: Rate z < -2.0 AND Temp z > 1.0
+5. Accelerometer ratio abnormal: > 3.0 OR < 0.3
+
+### When to Classify as NORMAL (NO)
+1. ALL features have |z| < 1.5
+2. Accelerometer ratio between 0.5 and 2.0
+3. Temperature within normal operating range
+
+### Safety Margin Rule
+- In borderline cases (1.3 < |z| < 1.7), lean toward ANOMALY
+- False alarms are preferable to missed detections in industrial safety
+
+## REFERENCE: SENSOR NORMAL RANGES
+- Accelerometer1RMS: 0.02-0.05 g (normal vibration)
+- Accelerometer2RMS: 0.02-0.05 g (normal vibration)
+- Temperature: 75-95°C (normal operating range)
+- Volume Flow RateRMS: 30-150 L/min (normal flow range)
+
+## COMMON FAULT COMBINATIONS
+
+### High Flow + Low Temperature = Cooling System Issue
+### Low Flow + High Temperature = Valve Restriction or Pump Problem
+### High Vibration + Normal Flow = Bearing or Mechanical Fault
+### All Sensors Abnormal = Systemic Problem or Sensor Fault

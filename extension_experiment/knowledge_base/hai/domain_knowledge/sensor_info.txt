@@ -1,0 +1,97 @@
+HAI Industrial Control System Sensor Information
+
+1. P1_LIT01 (Level Indicator Transmitter)
+   - Process area: P1 process unit
+   - Measurement: liquid level or tank level process variable
+   - Normal behavior: changes smoothly under stable process operation
+   - Diagnostic meaning: a large positive or negative z-score may indicate abnormal level control, abnormal inflow or outflow, or an attack affecting process state.
+
+2. P1_PIT01 (Pressure Indicator Transmitter 1)
+   - Process area: P1 process unit
+   - Measurement: pressure process variable
+   - Normal behavior: remains within a stable pressure band during normal operation
+   - Diagnostic meaning: clear pressure deviation may indicate flow restriction, pressure control instability, or process disturbance.
+
+3. P1_PIT02 (Pressure Indicator Transmitter 2)
+   - Process area: P1 process unit
+   - Measurement: second pressure process variable
+   - Normal behavior: should remain consistent with other P1 pressure and flow signals
+   - Diagnostic meaning: joint deviation with P1_PIT01 or flow variables strengthens evidence for a P1 process anomaly.
+
+4. P1_FT01 (Flow Transmitter 1)
+   - Process area: P1 process unit
+   - Measurement: flow rate process variable
+   - Normal behavior: changes smoothly with valve and process conditions
+   - Diagnostic meaning: flow deviation may indicate valve manipulation, flow restriction, or attack-induced process change.
+
+5. P1_FT02 (Flow Transmitter 2)
+   - Process area: P1 process unit
+   - Measurement: second flow rate process variable
+   - Normal behavior: should remain physically consistent with related P1 flow and valve signals
+   - Diagnostic meaning: significant deviation may indicate process imbalance or abnormal valve/control behavior.
+
+6. P1_FT03 (Flow Transmitter 3)
+   - Process area: P1 process unit
+   - Measurement: third flow rate process variable
+   - Normal behavior: follows stable process flow under normal operation
+   - Diagnostic meaning: large deviation can indicate abnormal process flow or coordinated manipulation.
+
+7. P1_FCV01Z (Flow Control Valve 1 Position)
+   - Process area: P1 process unit
+   - Measurement: flow-control valve position or feedback signal
+   - Normal behavior: should be consistent with related flow transmitters
+   - Diagnostic meaning: valve-position deviation together with flow deviation suggests valve or control anomaly.
+
+8. P1_FCV03Z (Flow Control Valve 3 Position)
+   - Process area: P1 process unit
+   - Measurement: third flow-control valve position or feedback signal
+   - Normal behavior: changes consistently with flow control actions
+   - Diagnostic meaning: abnormal valve position can support detection of flow-control faults or attacks.
+
+9. P2_SIT01 (Speed Indicator Transmitter 1)
+   - Process area: P2 rotating equipment unit
+   - Measurement: speed-related process signal
+   - Normal behavior: remains close to the baseline when the equipment is operating steadily
+   - Diagnostic meaning: a sharp deviation may indicate abnormal rotating equipment behavior or control disturbance.
+
+10. P2_SIT02 (Speed Indicator Transmitter 2)
+   - Process area: P2 rotating equipment unit
+   - Measurement: second speed-related process signal
+   - Normal behavior: should change consistently with P2_SIT01 under normal conditions
+   - Diagnostic meaning: simultaneous deviation of P2_SIT01 and P2_SIT02 strengthens evidence for a process anomaly.
+
+11. P2_CO_rpm (Controller Output RPM)
+   - Process area: P2 control unit
+   - Measurement: controller output related to rotational speed
+   - Normal behavior: should be consistent with the equipment speed signals
+   - Diagnostic meaning: abnormal RPM deviation may indicate abnormal control action or attack-induced manipulation.
+
+12. P3_FIT01 (Flow Indicator Transmitter)
+   - Process area: P3 process unit
+   - Measurement: P3 flow-related process variable
+   - Normal behavior: stays near the process baseline during normal operation
+   - Diagnostic meaning: flow deviation may indicate process disturbance in P3 or cross-area attack effect.
+
+13. P3_LIT01 (Level Indicator Transmitter)
+   - Process area: P3 process unit
+   - Measurement: P3 level process variable
+   - Normal behavior: level remains within a controlled operating band
+   - Diagnostic meaning: level deviation with P3 flow or pressure deviation indicates P3 process anomaly.
+
+14. P3_PIT01 (Pressure Indicator Transmitter)
+   - Process area: P3 process unit
+   - Measurement: P3 pressure process variable
+   - Normal behavior: pressure remains stable under normal conditions
+   - Diagnostic meaning: pressure deviation may indicate abnormal process load, flow restriction, or attack effect.
+
+15. P4_ST_PT01 (Steam Turbine Pressure Transmitter)
+   - Process area: P4 steam turbine process unit
+   - Measurement: turbine-side pressure process variable
+   - Normal behavior: changes gradually and remains close to the operating baseline
+   - Diagnostic meaning: large pressure deviation may indicate abnormal turbine-side process behavior or attack effect.
+
+16. P4_ST_TT01 (Steam Turbine Temperature Transmitter)
+   - Process area: P4 steam turbine process unit
+   - Measurement: turbine-side temperature process variable
+   - Normal behavior: changes gradually with turbine-side operating conditions
+   - Diagnostic meaning: temperature deviation together with turbine pressure deviation may indicate turbine-side process anomaly.

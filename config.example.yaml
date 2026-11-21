@@ -1,0 +1,33 @@
+data:
+  baseline_mode: per_file
+  baseline_points: 400
+  discard_minutes: 3
+  features:
+    - Accelerometer1RMS
+    - Accelerometer2RMS
+    - Temperature
+    - Volume Flow RateRMS
+  min_duration_minutes: 16
+  skab_dir: ./data/skab
+  window_size: 30
+  window_step: 30
+
+knowledge_base:
+  dir: ./knowledge_base
+  embedding_model: paraphrase-multilingual-MiniLM-L12-v2
+  top_k: 6
+
+llm:
+  mode: local
+  model: llama3.1:8b
+  local_url: http://localhost:11434
+  temperature: 0.2
+  max_tokens: 250
+  timeout: 500
+  request_interval: 7
+  retry_base_delay: 2
+  max_retries: 5
+
+output:
+  results_dir: ./outputs/results
+

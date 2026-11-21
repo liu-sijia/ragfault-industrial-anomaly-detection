@@ -1,0 +1,8 @@
+z_min,z_max,level,description
+-999,-3.0,Severely Low,Value severely below normal range may indicate serious fault
+-3.0,-2.0,Low,Value below normal range may indicate mild anomaly
+-2.0,-1.0,Slightly Low,Value slightly below normal range
+-1.0,1.0,Normal,Value within normal range
+1.0,2.0,Slightly High,Value slightly above normal range
+2.0,3.0,High,Value above normal range may indicate mild anomaly
+3.0,999,Severely High,Value severely above normal range may indicate serious fault

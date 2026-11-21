@@ -1,0 +1,56 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Local configuration and secrets
+config.yaml
+extension_experiment/configs/hai_transfer_config.yaml
+extension_experiment/configs/*.local.yaml
+.env
+.env.*
+!.env.example
+*.key
+*.pem
+
+# Datasets, uploads, runtime output and generated scene knowledge
+data/
+uploads/
+outputs/
+results/
+frontend/*.csv
+frontend/*.zip
+extension_experiment/data/
+extension_experiment/results/
+knowledge_base/scenes/
+
+# Generated vector indexes / serialized objects / model artifacts
+**/faiss_index/
+*.faiss
+*.pkl
+*.pt
+*.pth
+*.onnx
+*.gguf
+
+# Large media and office documents
+*.mp4
+*.avi
+*.mov
+*.doc
+*.docx
+*.ppt
+*.pptx
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+~$*
+
